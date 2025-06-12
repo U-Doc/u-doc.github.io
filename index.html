@@ -5,37 +5,80 @@
   <meta name="description" content="U-Doc – Editor tools. Batch Renamer & Organize: bulk-rename GameObjects and assets with custom templates, saving you time on routine tasks.">
   <title>U-Doc – Editor Tools</title>
   <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 2em auto; line-height: 1.5; }
-    h1, h2 { color: #333; }
-    a { color: #0366d6; text-decoration: none; }
+    :root {
+      --accent: #0366d6;
+      --bg: #f9f9f9;
+      --card-bg: #fff;
+      --text: #333;
+      --border: #e1e4e8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--accent);
+      color: white;
+      padding: 2em 1em;
+      text-align: center;
+    }
+    header h1 { margin: 0; font-size: 2rem; }
+    main { max-width: 700px; margin: -1.5em auto 2em; padding: 0 1em; }
+    .section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5em;
+      margin-bottom: 1.5em;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 1.4rem;
+    }
+    ul { padding-left: 1.2em; }
+    ul li { margin-bottom: 0.5em; }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
     a:hover { text-decoration: underline; }
-    .section { margin-bottom: 2em; }
+    .contact a { display: inline-block; margin-bottom: 0.3em; }
   </style>
 </head>
 <body>
-  <h1>U-Doc (Editor Tools Developer)</h1>
+  <header>
+    <h1>U-Doc</h1>
+    <p>Editor Tools Developer</p>
+  </header>
 
-  <div class="section" id="about">
-    <h2>About Me</h2>
-    <p>I’m a developer focused on creating useful editor tools to speed up routine tasks in the Unity Editor. This is my first package on the Asset Store.</p>
-  </div>
+  <main>
+    <section class="section" id="about">
+      <h2>About Me</h2>
+      <p>I’m a developer focused on creating useful editor tools to speed up routine tasks in the Unity Editor. This is my first package on the Asset Store.</p>
+    </section>
 
-  <div class="section" id="plugin">
-    <h2>Batch Renamer &amp; Organize</h2>
-    <ul>
-      <li>Bulk-rename selected GameObjects in the Hierarchy window</li>
-      <li>Bulk-rename and (optionally) move assets in the Project window</li>
-      <li>Flexible name templates using <code>{original}</code> and <code>{index}</code></li>
-    </ul>
-    <p><a href="https://github.com/u-doc/batch-renamer-organize" target="_blank">View on GitHub</a></p>
-  </div>
+    <section class="section" id="plugin">
+      <h2>Batch Renamer &amp; Organize</h2>
+      <ul>
+        <li>Bulk-rename selected GameObjects in the Hierarchy window</li>
+        <li>Bulk-rename and (optionally) move assets in the Project window</li>
+        <li>Flexible name templates using <code>{original}</code> and <code>{index}</code></li>
+      </ul>
+      <p><a href="https://github.com/u-doc/batch-renamer-organize" target="_blank">View on GitHub →</a></p>
+    </section>
 
-  <div class="section" id="contact">
-    <h2>Contact</h2>
-    <p>
-      Email: <a href="mailto:udoc.flamingo@gmail.com">udoc.flamingo@gmail.com</a><br>
-      GitHub: <a href="https://github.com/u-doc">github.com/u-doc</a>
-    </p>
-  </div>
+    <section class="section contact" id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:udoc.flamingo@gmail.com">udoc.flamingo@gmail.com</a></p>
+      <p>GitHub: <a href="https://github.com/u-doc" target="_blank">github.com/u-doc</a></p>
+    </section>
+  </main>
 </body>
 </html>
