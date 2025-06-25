@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="U-Doc – Editor tools. Batch Renamer & Organize: bulk-rename GameObjects and assets with custom templates, saving you time on routine tasks.">
-  <title>U-Doc – Editor Tools</title>
+  <meta name="description" content="U-Doc – Editor tools. Batch Renamer & Organize PRO: bulk-rename GameObjects and assets with custom templates, preview, undo/redo, and folder organization.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>U-Doc – Batch Renamer & Organize PRO</title>
   <style>
     :root {
       --accent: #0366d6;
@@ -11,6 +12,8 @@
       --card-bg: #fff;
       --text: #333;
       --border: #e1e4e8;
+      --radius: 8px;
+      --transition: 0.2s ease;
     }
     * { box-sizing: border-box; }
     body {
@@ -26,30 +29,72 @@
       padding: 2em 1em;
       text-align: center;
     }
-    header h1 { margin: 0; font-size: 2rem; }
-    main { max-width: 700px; margin: -1.5em auto 2em; padding: 0 1em; }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: .5em 0 0;
+      font-size: 1.1rem;
+    }
+    main {
+      max-width: 800px;
+      margin: -1.5em auto 2em;
+      padding: 0 1em;
+    }
     .section {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius);
       padding: 1.5em;
       margin-bottom: 1.5em;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: box-shadow var(--transition);
+    }
+    .section:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     h2 {
       margin-top: 0;
       color: var(--accent);
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
     ul { padding-left: 1.2em; }
     ul li { margin-bottom: 0.5em; }
+    code { background: #f1f1f1; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
     a {
       color: var(--accent);
       text-decoration: none;
       font-weight: 500;
     }
     a:hover { text-decoration: underline; }
-    .contact a { display: inline-block; margin-bottom: 0.3em; }
+    .cta {
+      text-align: center;
+      margin-top: 1.5em;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: .8em 1.5em;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: background var(--transition);
+    }
+    .btn:hover {
+      background: #024a9f;
+    }
+    .badge {
+      display: block;
+      margin: 1em auto 0;
+      max-width: 200px;
+    }
+    .screenshot {
+      width: 100%;
+      border-radius: var(--radius);
+      margin: 1em 0;
+      border: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
@@ -59,25 +104,52 @@
   </header>
 
   <main>
-    <section class="section" id="about">
-      <h2>About Me</h2>
-      <p>I’m a developer focused on creating useful editor tools to speed up routine tasks in the Unity Editor. This is my first package on the Asset Store.</p>
+    <section class="section" id="plugin">
+      <h2>Batch Renamer &amp; Organize PRO</h2>
+      <img src="path/to/screenshot.png" alt="Batch Renamer PRO screenshot" class="screenshot">
+      <ul>
+        <li>🔄 <strong>Bulk-rename GameObjects</strong> in Hierarchy with preview &amp; undo/redo</li>
+        <li>📁 <strong>Batch-organize assets</strong> in Project view: move, rename &amp; update .meta files</li>
+        <li>⚙️ <strong>Flexible templates</strong> using <code>{original}</code>, <code>{index}</code>, dates, custom counters</li>
+        <li>🔍 <strong>Recursive folder scan</strong> &amp; filter by type (textures, scenes, scripts…)</li>
+        <li>💾 <strong>Export/import presets</strong> as JSON for team-wide standards</li>
+      </ul>
+      <div class="cta">
+        <a href="https://assetstore.unity.com/packages/tools/utilities/batch-renamer-organize-pro-123456" class="btn" target="_blank">
+          View on Asset Store →
+        </a>
+      </div>
     </section>
 
-    <section class="section" id="plugin">
-      <h2>Batch Renamer &amp; Organize</h2>
+    <section class="section" id="features">
+      <h2>Why PRO?</h2>
       <ul>
-        <li>Bulk-rename selected GameObjects in the Hierarchy window</li>
-        <li>Bulk-rename and (optionally) move assets in the Project window</li>
-        <li>Flexible name templates using <code>{original}</code> and <code>{index}</code></li>
+        <li>✅ Preview all renames before apply, with full <strong>undo/redo</strong></li>
+        <li>✅ Auto-fix of .meta files to preserve references</li>
+        <li>✅ Support for <strong>Addressables</strong> and custom folder rules</li>
+        <li>✅ Detailed PDF documentation &amp; sample project included</li>
+        <li>✅ Lifetime updates &amp; dedicated support</li>
       </ul>
-      <p><a href="https://github.com/u-doc/batch-renamer-organize" target="_blank">View on GitHub →</a></p>
+    </section>
+
+    <section class="section" id="pricing">
+      <h2>Pricing</h2>
+      <p><strong>Only $24.99</strong> (30% off introductory price)</p>
+      <p>Regular price: $34.99</p>
+      <img src="https://img.shields.io/badge/Asset_Store-5%2F5-brightgreen" alt="5/5 stars" class="badge">
+    </section>
+
+    <section class="section" id="author">
+      <h2>About the Author</h2>
+      <p>I’m a Unity Editor tools developer focused on saving your time. My first package, <strong>Batch Renamer &amp; Organize PRO</strong>, has already helped hundreds of teams eliminate tedious renaming tasks.</p>
+      <p>Next up: <strong>Smart UI Optimizer</strong>—coming soon.</p>
     </section>
 
     <section class="section contact" id="contact">
-      <h2>Contact</h2>
+      <h2>Contact &amp; Links</h2>
       <p>Email: <a href="mailto:udoc.flamingo@gmail.com">udoc.flamingo@gmail.com</a></p>
       <p>GitHub: <a href="https://github.com/u-doc" target="_blank">github.com/u-doc</a></p>
+      <p>Website: <a href="https://u-doc.github.io" target="_blank">u-doc.github.io</a></p>
     </section>
   </main>
 </body>
