@@ -28,6 +28,7 @@
       background: #222;
       color: #ddd;
     }
+    /* HEADER WITH DARK OVERLAY FOR TEXT CONTRAST */
     header {
       background: url('header-bg.jpg') no-repeat center/cover;
       position: relative;
@@ -37,22 +38,29 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: white;
       text-align: center;
     }
-    header::before {
+    header::after {
+      /* dark semi-transparent overlay */
       content: "";
-      background: inherit;
-      background-attachment: fixed;
-      background-position: center;
       position: absolute;
-      top:0; left:0; right:0; bottom:0;
-      transform: translateZ(0) scale(1.2);
-      will-change: transform;
-      z-index: -1;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
     }
-    header h1 { margin: 0; font-size: 2.5rem; }
-    header p { margin: .5em 0 0; font-size: 1.1rem; }
+    header h1, header p {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      margin: 0;
+    }
+    header h1 {
+      font-size: 2.5rem;
+    }
+    header p {
+      margin-top: .5em;
+      font-size: 1.1rem;
+    }
 
     main {
       max-width: 800px;
@@ -66,7 +74,7 @@
       padding: 1.5em;
       margin-bottom: 1.5em;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      transition: transform var(--transition), box-shadow var(--transition);
+      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
       opacity: 0;
       transform: translateY(20px);
     }
@@ -98,7 +106,7 @@
     }
     a:hover { text-decoration: underline; }
 
-    /* Tabs */
+    /* TABS */
     .tabs { display: flex; gap: 10px; margin-bottom: 1em; }
     .tabs button {
       padding: .5em 1em;
@@ -112,7 +120,7 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* Scroll to top */
+    /* SCROLL TO TOP */
     .scroll-top {
       position: fixed;
       bottom: 20px;
@@ -127,7 +135,7 @@
       line-height: 1;
     }
 
-    /* Theme toggle */
+    /* THEME TOGGLE */
     .toggle-theme {
       position: fixed;
       top: 20px; right: 20px;
@@ -140,10 +148,6 @@
       font-size: 1.2rem;
     }
 
-    .cta {
-      text-align: center;
-      margin-top: 1.5em;
-    }
     .btn {
       display: inline-block;
       background: var(--accent);
@@ -154,7 +158,6 @@
       transition: background var(--transition);
     }
     .btn:hover { background: #024a9f; }
-
     .badge {
       display: block;
       margin: 1em auto 0;
@@ -173,12 +176,13 @@
   </header>
 
   <main>
-    <!-- Tabs FREE/PRO -->
+    <!-- FREE / PRO TABS -->
     <div class="tabs">
       <button data-tab="free" class="active">FREE</button>
       <button data-tab="pro">PRO</button>
     </div>
 
+    <!-- FREE CONTENT -->
     <div id="free" class="tab-content active">
       <section class="section">
         <h2>Batch Renamer &amp; Organize — FREE</h2>
@@ -190,10 +194,12 @@
       </section>
     </div>
 
+    <!-- PRO CONTENT -->
     <div id="pro" class="tab-content">
       <section class="section">
-        <h2>Batch Renamer &amp; Organize — PRO</h2>
-        <p><strong>Intro price $9.99</strong> (soon $14.99)</p>
+        <h2>Batch Renamer &amp; Organize — PRO (Coming Soon)</h2>
+        <p><strong>Intro price $9.99</strong> (rising to $14.99 soon)<br>
+           PRO version is now under review by Asset Store — launch imminently!</p>
         <ul>
           <li>🔄 Full preview of all renames with <strong>undo/redo</strong></li>
           <li>📂 Recursive folder scan &amp; batch-organize assets (move, rename, .meta)</li>
@@ -205,27 +211,30 @@
       </section>
     </div>
 
-    <section class="section" id="upcoming">
+    <!-- SMART UI OPTIMIZER PREVIEW BLOCK -->
+    <section class="section visible" id="upcoming">
       <h2>Coming Soon: Smart UI Optimizer</h2>
-      <p>250+ users tried the FREE tool in 2 days! PRO is now under review — stay tuned!</p>
+      <p>250+ users tried the FREE Batch Renamer in just 2 days! Our new plugin is now under review — stay tuned!</p>
       <ul>
         <li>📐 Auto-adjust anchors and pivots across all Canvas elements</li>
         <li>🎨 Responsive layout templates (Mobile Portrait, Tablet Landscape, etc.)</li>
-        <li>⚡ Batch-optimize multiple scenes or prefabs</li>
-        <li>🔧 Live preview in the Editor</li>
+        <li>⚡ Batch-optimize multiple scenes or prefabs at once</li>
+        <li>🔧 Live preview of layout changes directly in the Editor</li>
       </ul>
       <p>Beta release expected next month — follow us for updates!</p>
     </section>
 
+    <!-- PRICING BLOCK -->
     <section class="section" id="pricing">
       <h2>Pricing &amp; Availability</h2>
       <ul>
         <li><strong>FREE version</strong>: available now on Asset Store</li>
-        <li><strong>PRO version</strong>: <strong>$9.99</strong> introductory (rising to $14.99 soon)</li>
+        <li><strong>PRO version</strong>: $9.99 introductory (rising to $14.99 soon), under review</li>
       </ul>
       <img src="https://img.shields.io/badge/Asset_Store-5%2F5-brightgreen" alt="5/5 stars" class="badge">
     </section>
 
+    <!-- CONTACT -->
     <section class="section contact" id="contact">
       <h2>Contact &amp; Links</h2>
       <p>Email: <a href="mailto:udoc.flamingo@gmail.com">udoc.flamingo@gmail.com</a></p>
