@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="U-Doc – Editor tools. Batch Renamer & Organize FREE version now live (250+ users in 2 days). PRO version coming soon: preview, undo/redo, recursive scan, advanced templates, JSON presets.">
+  <meta name="description" content="U-Doc – Editor tools. Batch Renamer & Organize FREE & PRO: bulk-rename GameObjects and assets with custom templates, preview, undo/redo, and folder organization.">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>U-Doc – Batch Renamer & Organize</title>
   <style>
@@ -13,9 +13,10 @@
       --text: #333;
       --border: #e1e4e8;
       --radius: 8px;
-      --transition: 0.2s ease;
+      --transition: 0.3s ease;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -23,20 +24,36 @@
       color: var(--text);
       line-height: 1.6;
     }
+    body.dark {
+      background: #222;
+      color: #ddd;
+    }
     header {
-      background: var(--accent);
+      background: url('header-bg.jpg') no-repeat center/cover;
+      position: relative;
+      overflow: hidden;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       color: white;
-      padding: 2em 1em;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
+    header::before {
+      content: "";
+      background: inherit;
+      background-attachment: fixed;
+      background-position: center;
+      position: absolute;
+      top:0; left:0; right:0; bottom:0;
+      transform: translateZ(0) scale(1.2);
+      will-change: transform;
+      z-index: -1;
     }
-    header p {
-      margin: .5em 0 0;
-      font-size: 1.1rem;
-    }
+    header h1 { margin: 0; font-size: 2.5rem; }
+    header p { margin: .5em 0 0; font-size: 1.1rem; }
+
     main {
       max-width: 800px;
       margin: -1.5em auto 2em;
@@ -49,10 +66,17 @@
       padding: 1.5em;
       margin-bottom: 1.5em;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      transition: box-shadow var(--transition);
+      transition: transform var(--transition), box-shadow var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .section:hover {
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
     h2 {
       margin-top: 0;
@@ -61,13 +85,61 @@
     }
     ul { padding-left: 1.2em; }
     ul li { margin-bottom: 0.5em; }
-    code { background: #f1f1f1; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
+    code {
+      background: #f1f1f1;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
     a {
       color: var(--accent);
       text-decoration: none;
       font-weight: 500;
     }
     a:hover { text-decoration: underline; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 10px; margin-bottom: 1em; }
+    .tabs button {
+      padding: .5em 1em;
+      border: none;
+      background: #e1e4e8;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background .2s;
+    }
+    .tabs button.active { background: var(--accent); color: white; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Scroll to top */
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: white;
+      padding: .5em;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    /* Theme toggle */
+    .toggle-theme {
+      position: fixed;
+      top: 20px; right: 20px;
+      padding: .5em;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
     .cta {
       text-align: center;
       margin-top: 1.5em;
@@ -81,9 +153,8 @@
       text-decoration: none;
       transition: background var(--transition);
     }
-    .btn:hover {
-      background: #024a9f;
-    }
+    .btn:hover { background: #024a9f; }
+
     .badge {
       display: block;
       margin: 1em auto 0;
@@ -92,48 +163,65 @@
   </style>
 </head>
 <body>
+
+  <button class="toggle-theme" id="themeToggle">🌙</button>
+  <div class="scroll-top" id="toTop">↑</div>
+
   <header>
     <h1>U-Doc</h1>
     <p>Editor Tools Developer</p>
   </header>
 
   <main>
-    <section class="section" id="plugin">
-      <h2>Batch Renamer &amp; Organize</h2>
-      <p>🔥 <strong>FREE version</strong>: already live, 250+ users checked it out in the first 2 days!</p>
-      <ul>
-        <li>🔄 Rename selected GameObjects in the Hierarchy</li>
-        <li>📁 Rename assets in the Project window</li>
-        <li>⚙️ Basic templates: <code>{original}</code>, <code>{index}</code></li>
-      </ul>
-      <p>🚀 <strong>PRO version</strong>: currently under review, coming soon!</p>
-      <ul>
-        <li>🔄 Full preview of all renames with <strong>undo/redo</strong></li>
-        <li>📂 Recursive folder scan &amp; batch-organize assets (move, rename, .meta update)</li>
-        <li>⚙️ Advanced templates: dates, counters, custom tokens</li>
-        <li>💾 Export/import renaming presets as JSON</li>
-        <li>🔍 Filter by asset type (textures, scenes, scripts…)</li>
-      </ul>
-      <p>💬 Interested? Subscribe or bookmark this page and we’ll announce as soon as PRO is live!</p>
-    </section>
+    <!-- Tabs FREE/PRO -->
+    <div class="tabs">
+      <button data-tab="free" class="active">FREE</button>
+      <button data-tab="pro">PRO</button>
+    </div>
+
+    <div id="free" class="tab-content active">
+      <section class="section">
+        <h2>Batch Renamer &amp; Organize — FREE</h2>
+        <ul>
+          <li>🔄 Rename selected GameObjects in the Hierarchy</li>
+          <li>📁 Rename assets in the Project window</li>
+          <li>⚙️ Basic templates: <code>{original}</code>, <code>{index}</code></li>
+        </ul>
+      </section>
+    </div>
+
+    <div id="pro" class="tab-content">
+      <section class="section">
+        <h2>Batch Renamer &amp; Organize — PRO</h2>
+        <p><strong>Intro price $9.99</strong> (soon $14.99)</p>
+        <ul>
+          <li>🔄 Full preview of all renames with <strong>undo/redo</strong></li>
+          <li>📂 Recursive folder scan &amp; batch-organize assets (move, rename, .meta)</li>
+          <li>⚙️ Advanced templates: dates, counters, custom tokens</li>
+          <li>💾 Export/import renaming presets as JSON</li>
+          <li>🔍 Filter by asset type (textures, scenes, scripts…)</li>
+          <li>📊 Export CSV &amp; Copy to Clipboard</li>
+        </ul>
+      </section>
+    </div>
 
     <section class="section" id="upcoming">
       <h2>Coming Soon: Smart UI Optimizer</h2>
-      <p>Optimize your UI for any screen size in seconds. Smart UI Optimizer will let you:</p>
+      <p>250+ users tried the FREE tool in 2 days! PRO is now under review — stay tuned!</p>
       <ul>
         <li>📐 Auto-adjust anchors and pivots across all Canvas elements</li>
-        <li>🎨 Apply responsive layout templates (Mobile Portrait, Tablet Landscape, etc.)</li>
-        <li>⚡ Batch-optimize multiple scenes or prefabs at once</li>
-        <li>🔧 Preview layout changes live in the Editor</li>
+        <li>🎨 Responsive layout templates (Mobile Portrait, Tablet Landscape, etc.)</li>
+        <li>⚡ Batch-optimize multiple scenes or prefabs</li>
+        <li>🔧 Live preview in the Editor</li>
       </ul>
-      <p>Stay tuned—beta release expected next month!</p>
+      <p>Beta release expected next month — follow us for updates!</p>
     </section>
 
     <section class="section" id="pricing">
       <h2>Pricing &amp; Availability</h2>
       <ul>
         <li><strong>FREE version</strong>: available now on Asset Store</li>
-        <li><strong>PRO version</strong>: under review, launch price TBD</li>
+        <li><strong>PRO version</strong>: <strong>$9.99</strong> introductory (rising to $14.99 soon)</li>
       </ul>
       <img src="https://img.shields.io/badge/Asset_Store-5%2F5-brightgreen" alt="5/5 stars" class="badge">
     </section>
@@ -145,5 +233,43 @@
       <p>Website: <a href="https://u-doc.github.io" target="_blank">u-doc.github.io</a></p>
     </section>
   </main>
+
+  <script>
+    // Tabs logic
+    document.querySelectorAll('.tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Fade-in on scroll
+    const sections = document.querySelectorAll('.section');
+    const onScroll = () => {
+      sections.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+          el.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // Scroll-to-top button
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=> {
+      toTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    });
+  </script>
 </body>
 </html>
