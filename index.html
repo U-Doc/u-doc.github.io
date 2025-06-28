@@ -28,9 +28,10 @@
       background: #222;
       color: #ddd;
     }
-    /* HEADER WITH DARK OVERLAY FOR TEXT CONTRAST */
+
+    /* HEADER — синий градиент вместо серого */
     header {
-      background: url('header-bg.jpg') no-repeat center/cover;
+      background: linear-gradient(135deg, #0366d6, #0059a3);
       position: relative;
       overflow: hidden;
       height: 300px;
@@ -40,13 +41,9 @@
       align-items: center;
       text-align: center;
     }
+    /* Убираем прежний overlay */
     header::after {
-      /* dark semi-transparent overlay */
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 1;
+      display: none;
     }
     header h1, header p {
       position: relative;
@@ -106,17 +103,29 @@
     }
     a:hover { text-decoration: underline; }
 
-    /* TABS */
-    .tabs { display: flex; gap: 10px; margin-bottom: 1em; }
+    /* TABS — вынесены над header, белый фон */
+    .tabs {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      gap: 10px;
+      margin: -40px auto 1em;
+      justify-content: center;
+      max-width: 800px;
+    }
     .tabs button {
       padding: .5em 1em;
-      border: none;
-      background: #e1e4e8;
+      border: 2px solid var(--accent);
+      background: white;
+      color: var(--accent);
       cursor: pointer;
       border-radius: 4px;
-      transition: background .2s;
+      transition: background .2s, color .2s;
     }
-    .tabs button.active { background: var(--accent); color: white; }
+    .tabs button.active {
+      background: var(--accent);
+      color: white;
+    }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
@@ -158,6 +167,7 @@
       transition: background var(--transition);
     }
     .btn:hover { background: #024a9f; }
+
     .badge {
       display: block;
       margin: 1em auto 0;
@@ -214,7 +224,7 @@
     <!-- SMART UI OPTIMIZER PREVIEW BLOCK -->
     <section class="section visible" id="upcoming">
       <h2>Coming Soon: Smart UI Optimizer</h2>
-      <p>250+ users tried the FREE Batch Renamer in just 2 days! Our new plugin is now under review — stay tuned!</p>
+      <p>250+ users tried the FREE tool in just 2 days! Our new plugin is now under review — stay tuned!</p>
       <ul>
         <li>📐 Auto-adjust anchors and pivots across all Canvas elements</li>
         <li>🎨 Responsive layout templates (Mobile Portrait, Tablet Landscape, etc.)</li>
